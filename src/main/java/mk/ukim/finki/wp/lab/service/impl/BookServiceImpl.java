@@ -1,13 +1,14 @@
-package mk.ukim.finki.wp.lab.service;
+package mk.ukim.finki.wp.lab.service.impl;
 
 import mk.ukim.finki.wp.lab.model.Book;
 import mk.ukim.finki.wp.lab.repository.BookRepository;
+import mk.ukim.finki.wp.lab.service.BookService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class BookServiceImpl implements BookService{
+public class BookServiceImpl implements BookService {
 
     //BookService треба да зависи од BookRepository
     private final BookRepository bookRepository;
@@ -25,4 +26,5 @@ public class BookServiceImpl implements BookService{
     public List<Book> searchBooks(String text, Double rating) {
         return bookRepository.searchBooks(text, rating);
     }
+
 }

@@ -25,6 +25,5 @@ public class DataHolder {
         books.add(new Book("The Girl on the Train", "Thriller", 4.1));
         books.add(new Book("Harry Potter and the Sorcerer’s Stone", "Fantasy", 4.9));
         books.add(new Book("The Great Gatsby", "Classic", 4.4));
-
     }
 }

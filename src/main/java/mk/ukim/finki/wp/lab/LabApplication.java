@@ -1,7 +1,7 @@
 package mk.ukim.finki.wp.lab;
 
-import mk.ukim.finki.wp.lab.web.BookListServlet;
-import mk.ukim.finki.wp.lab.web.BookReservationServlet;
+import mk.ukim.finki.wp.lab.web.servlet.BookListServlet;
+import mk.ukim.finki.wp.lab.web.servlet.BookReservationServlet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
@@ -14,18 +14,6 @@ public class LabApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(LabApplication.class, args);
-	}
-
-	@Bean
-	public ServletRegistrationBean<BookListServlet> bookListServletRegistration(
-			BookListServlet servlet) {
-		return new ServletRegistrationBean<>(servlet, "/");
-	}
-
-	@Bean
-	public ServletRegistrationBean<BookReservationServlet> bookReservationServletRegistration(
-			BookReservationServlet servlet) {
-		return new ServletRegistrationBean<>(servlet, "/bookReservation");
 	}
 
 }

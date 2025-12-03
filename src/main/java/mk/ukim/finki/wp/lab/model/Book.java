@@ -1,10 +1,8 @@
 package mk.ukim.finki.wp.lab.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
-@Data
-@AllArgsConstructor
+@Getter @Setter @AllArgsConstructor
 public class Book {
     private String title;
     private String genre;

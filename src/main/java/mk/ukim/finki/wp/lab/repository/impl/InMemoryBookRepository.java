@@ -1,7 +1,8 @@
-package mk.ukim.finki.wp.lab.repository;
+package mk.ukim.finki.wp.lab.repository.impl;
 
 import mk.ukim.finki.wp.lab.bootstrap.DataHolder;
 import mk.ukim.finki.wp.lab.model.Book;
+import mk.ukim.finki.wp.lab.repository.BookRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,4 +20,5 @@ public class InMemoryBookRepository implements BookRepository {
                 .filter(b -> b.getTitle().toLowerCase().contains(text.toLowerCase()) && b.getAverageRating() >= rating)
                 .toList();
     }
+
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
+<html>
 <head>
     <meta charset="utf-8">
     <title>Book Reservation - Welcome and choose a Book</title>
@@ -31,33 +31,33 @@
     <h1>Welcome to our Book Reservation App</h1>
 </header>
 <main>
-    <form action="/" method="GET">
-        <h2>Filter by title:</h2>
-        <input type="text" name="filterTitle">
+    <form action="/" method="post">
+        <h2>Filter book:</h2>
 
-        <h2>Filter by minimum rating:</h2>
-        <input type="text" name="filterRating">
+        <label>Book Name:</label>
+        <input type="text" name="bookName">
+        <br/>
 
-        <input type="submit" value="Filter">
+        <label>Minimum Average Rating:</label>
+        <input type="number" name="minAverageRating" step=".01" min="0" value="0">
+        <br/>
+
+        <br/>
+        <input type="submit" value="Filter books">
     </form>
-
-
     <form action="/bookReservation" method="POST">
-
         <h2>Choose a book:</h2>
-        <!-- Display radio buttons for each book,
-             the value should be the book title
-             and the displayed text should be:
-             Title: <book_title>, Genre: <book_genre>, Rating: <average_rating> -->
-        <div th:each="book : ${books}" class="book-option">
-            <input type="radio" name="bookTitle" th:value="${book.title}" />
-            <span th:text="'Title: ' + ${book.title} + ', Genre: ' + ${book.genre} + ', Rating: ' + ${book.averageRating}"></span>
-        </div>
+
+        <ul>
+            <li th:each="book : ${books}">
+                <input type="radio" name="bookTitle" th:value="${book.title}" />
+                <label th:text="'Title: ' + ${book.title} + ', Genre: ' + ${book.genre} + ', Rating: ' + ${book.averageRating}"></label>
+            </li>
+        </ul>
 
         <h2>Enter your information:</h2>
         <label>Your Name:</label>
         <input type="text" name="readerName" required><br/>
-
         <label>Your Address:</label>
         <input type="text" name="readerAddress" required><br/>
 
