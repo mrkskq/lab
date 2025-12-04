@@ -2,11 +2,12 @@ package mk.ukim.finki.wp.lab.service.impl;
 
 import mk.ukim.finki.wp.lab.model.Author;
 import mk.ukim.finki.wp.lab.model.Book;
-import mk.ukim.finki.wp.lab.repository.AuthorRepository;
-import mk.ukim.finki.wp.lab.repository.BookRepository;
+import mk.ukim.finki.wp.lab.repository.jpa.AuthorRepository;
+import mk.ukim.finki.wp.lab.repository.jpa.BookRepository;
 import mk.ukim.finki.wp.lab.service.BookService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,28 +30,46 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> searchBooks(String text, Double rating) {
-        return bookRepository.searchBooks(text, rating);
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<Book> searchBooks(String text, double rating) {
+        //return bookRepository.searchBooks(text, rating);
+        return new ArrayList<>();
     }
 
     @Override
     public Book findBook(Long id) {
-        return bookRepository.findBook(id);
+        return bookRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Book> findBooksByAuthorId(Long authorId) {
+        return bookRepository.findAllByAuthor_Id(authorId);
     }
 
     @Override
     public Book add(String title, String genre, Double averageRating, Long authorId) {
-        Author author = authorRepository.findById(authorId);
-        return bookRepository.add(title, genre, averageRating, author);
+        Author author = authorRepository.findById(authorId).orElse(null);
+        Book book = new Book(title, genre, averageRating);
+        book.setAuthor(author);
+        return bookRepository.save(book);
     }
 
     @Override
     public Book update(Long id, String title, String genre, Double averageRating, Long authorId) {
-        Author author = authorRepository.findById(authorId);
-        return bookRepository.update(id, title, genre, averageRating, author);
+        Book book = findBook(id);
+        Author author = authorRepository.findById(authorId).orElse(null);
+        book.setTitle(title);
+        book.setGenre(genre);
+        book.setAverageRating(averageRating);
+        book.setAuthor(author);
+        return bookRepository.save(book);
     }
 
     @Override
     public void delete(Long id) {
-        bookRepository.delete(id);
+        bookRepository.deleteById(id);
     }
 }
