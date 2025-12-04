@@ -16,6 +16,6 @@ create table book
     title           varchar(255),
     genre           varchar(255),
     country         varchar(255),
-    averageRating   double precision,
+    average_rating  double precision,
     author_id       bigint references author
 );
