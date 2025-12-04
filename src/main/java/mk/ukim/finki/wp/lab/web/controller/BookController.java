@@ -60,6 +60,7 @@ public class BookController {
 
     @GetMapping("/book-form")
     public String getAddBookPage(Model model) {
+        model.addAttribute("authors", authorService.findAll());
         return "book-form";
     }
 
