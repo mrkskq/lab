@@ -8,6 +8,7 @@ import java.util.List;
 public interface InMemoryBookRepository {
     List<Book> findAll();
     List<Book> searchBooks(String text, double rating);
+    List<Book> findAllByAuthor_Id(Long authorId);
 
     Book findBook(Long id);
     Book add(String title, String genre, Double averageRating, Author author);

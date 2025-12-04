@@ -22,7 +22,14 @@ import java.util.stream.IntStream;
             return DataHolder.books.stream().filter(book -> book.getTitle().toLowerCase().contains(text.toLowerCase()) && book.getAverageRating() >= rating).toList();
         }
 
-        @Override
+    @Override
+    public List<Book> findAllByAuthor_Id(Long authorId) {
+        return DataHolder.books.stream()
+                .filter(book -> book.getAuthor() != null && book.getAuthor().getId().equals(authorId))
+                .toList();
+    }
+
+    @Override
         public Book findBook(Long id) {
             return DataHolder.books.stream().filter(book -> book.getId().equals(id)).findFirst().orElse(null);
         }

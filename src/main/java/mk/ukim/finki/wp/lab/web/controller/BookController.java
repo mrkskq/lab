@@ -25,8 +25,7 @@ public class BookController {
     @GetMapping
     @SuppressWarnings("unchecked")
     public String getBooksPage(@RequestParam(required = false) String error,
-                               @RequestParam(required = false) String filterName,
-                               @RequestParam(required = false) String filterRating,
+                               @RequestParam(required = false) String filterAuthorId,
                                Model model,
                                HttpSession session
     ) {
@@ -36,22 +35,26 @@ public class BookController {
 
         List<Book> books;
         List<String> lastViewed = (List<String>) session.getAttribute("lastViewed");
-        double averageRating = -1;
+
+        long authorId = -1L;
+
 
         try {
-            averageRating = Double.parseDouble(filterRating);
-        } catch (Exception e) {
+            authorId = Long.parseLong(filterAuthorId);
+        } catch(Exception e) {
             System.out.println(e.getMessage());
         }
 
-        if(filterName != null && averageRating != -1) {
-            books = bookService.searchBooks(filterName, averageRating);
+        if(authorId != -1) {
+            books = bookService.findBooksByAuthorId(authorId);
         } else {
             books = bookService.listAll();
         }
 
         model.addAttribute("books", books);
         model.addAttribute("lastViewedBooks", lastViewed);
+        model.addAttribute("authors", authorService.findAll());
+        model.addAttribute("filteredId", authorId);
         return "listBooks";
     }
 
