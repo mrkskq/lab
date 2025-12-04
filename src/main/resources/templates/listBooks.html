@@ -59,7 +59,7 @@
         <div th:each="book : ${books}">
             <div class="book-entry">
                 <input type="radio" class="book-option" name="bookTitle" th:value="${book.getTitle()}"
-                       th:text="'Title: ' + ${book.getTitle()} + ', Genre: ' + ${book.getGenre()} + ', Rating: ' + ${book.getAverageRating()} + ', Author: ' + ${book.getAuthorName()}" />
+                       th:text="'Title: ' + ${book.getTitle()} + ', Genre: ' + ${book.getGenre()} + ', Rating: ' + ${book.getAverageRating()} + ', Author: ' + ${book.getAuthorName()}" required />
 
                 <button type="submit" name="edit" th:formaction="@{'/books/book-form/' + ${book.getId()}}"
                         formmethod="get" formnovalidate>

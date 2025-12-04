@@ -38,8 +38,12 @@
         <input type="number" name="averageRating" th:value="${averageRating != null} ? ${averageRating} : ''" step=".01" min="0" value="0" required />
         <br />
 
-        <label>Author Id:</label>
-        <input type="text" name="authorId" th:value="${authorId != null} ? ${authorId} : ''" required/>
+        <label>Author:</label>
+        <select name="authorId">
+            <option th:each="author : ${authors}" th:value="${author.getId()}"
+                    th:text="${author.getName()} + ' ' + ${author.getSurname()}"
+                    th:selected="${author.getId() == authorId}"></option>
+        </select>
         <br />
 
         <button th:text="${bookId != null ? 'Edit' : 'Add'} + ' book'" type="submit"></button>
