@@ -28,7 +28,6 @@ public class AuthorRepository {
         authors.add(new Author("Arthur C.", "Clarke", "England", "Arthur C. Clarke biography"));
 
         for(int i = 0; i < authors.size(); i++) {
-            authors.get(i).setId((long) i);
             DataHolder.books.get(i).setAuthor(authors.get(i));
         }
     }
