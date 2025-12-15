@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <title>Book Reservation - Welcome and choose a Book</title>
@@ -36,7 +36,22 @@
 </head>
 <body>
 <header>
+    <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item" sec:authorize="isAnonymous()">
+            <a class="btn btn-light btn-sm ml-3" href="/login" style="background-color: #27b804; padding: 10px; font-weight: bold">
+                <i class="fa-solid fa-right-to-bracket"></i> Login
+            </a>
+        </li>
+
+        <li class="nav-item" sec:authorize="isAuthenticated()" >
+            <a class="btn btn-light btn-sm ml-3" href="/logout" style="background-color: #6ada50; padding: 10px; font-weight: bold">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+        </li>
+    </ul>
+
     <h1>Welcome to our Book Reservation App</h1>
+
 </header>
 <main>
     <form action="/books" method="GET">
@@ -59,30 +74,30 @@
         <br/>
 
         <br/>
-        <input type="submit" value="Filter books">
+        <input type="submit" value="Filter books" style="background-color: #cfcfcf; padding: 5px; font-weight: bold">
     </form>
 
-    <form action="/bookReservation" method="POST">
+    <form action="/bookReservation" method="POST" >
         <h2>Choose a book:</h2>
 
-        <div th:each="book : ${books}">
+        <div th:each="book : ${books}" >
             <div class="book-entry">
                 <input type="radio" class="book-option" name="bookTitle" th:value="${book.getTitle()}"
                        th:text="'Title: ' + ${book.getTitle()} + ', Genre: ' + ${book.getGenre()} + ', Rating: ' + ${book.getAverageRating()} + ', Author: ' + ${book.getAuthorName()}" required />
 
                 <button type="submit" name="edit" th:formaction="@{'/books/book-form/' + ${book.getId()}}"
-                        formmethod="get" formnovalidate>
+                        formmethod="get" style="background-color: #1edbdf; padding: 5px; font-weight: bold" formnovalidate sec:authorize="hasRole('ADMIN')">
                     Edit
                 </button>
 
                 <button type="submit" name="delete" th:formaction="@{'/books/delete/' + ${book.getId()}}"
-                        formmethod="post" formnovalidate>
+                        formmethod="post" style="background-color: #ff7e7e; padding: 5px; font-weight: bold" formnovalidate sec:authorize="hasRole('ADMIN')">
                     Delete
                 </button>
             </div>
         </div>
 
-        <button type="submit" name="addBook" formaction="/books/book-form" formmethod="get" formnovalidate>
+        <button type="submit" name="addBook" formaction="/books/book-form" formmethod="get" style="background-color: #cfcfcf; padding: 5px; font-weight: bold" formnovalidate sec:authorize="hasRole('ADMIN')">
             Add Book
         </button>
 
@@ -95,7 +110,7 @@
         <h2>Choose number of copies:</h2>
         <input type="number" name="numCopies" min="1" max="10" required><br/>
         <br/>
-        <input type="submit" value="Reserve Book">
+        <input type="submit" value="Reserve Book" style="background-color: #cfcfcf; padding: 5px; font-weight: bold">
     </form>
 </main>
 </body>
